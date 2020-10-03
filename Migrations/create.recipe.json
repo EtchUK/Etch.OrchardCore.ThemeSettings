@@ -1,0 +1,64 @@
+{
+  "name": "Etch.OrchardCore.ThemeSettings",
+  "displayName": "Configure Theme Settings",
+  "description": "Creates content definition for theme settings.",
+  "author": "Etch",
+  "website": "https://etchuk.com",
+  "version": "0.1.0",
+  "issetuprecipe": false,
+  "categories": [
+    "Design"
+  ],
+  "tags": [
+    "etch"
+  ],
+  "steps": [
+    {
+      "name": "ContentDefinition",
+      "ContentTypes": [
+        {
+          "Name": "ThemeSettings",
+          "DisplayName": "Theme Settings",
+          "Settings": {
+            "ContentTypeSettings": {
+              "Stereotype": "CustomSettings",
+              "Securable": true
+            },
+            "FullTextAspectSettings": {}
+          },
+          "ContentTypePartDefinitionRecords": [
+            {
+              "PartName": "ThemeSettings",
+              "Name": "ThemeSettings",
+              "Settings": {
+                "ContentTypePartSettings": {
+                  "Position": "0"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "ContentParts": [
+        {
+          "Name": "ThemeSettings",
+          "Settings": {},
+          "ContentPartFieldDefinitionRecords": [
+            {
+              "FieldName": "TextField",
+              "Name": "ColorPrimary",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Primary Color",
+                  "Editor": "Color"
+                },
+                "TextFieldSettings": {},
+                "ContentIndexSettings": {}
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
