@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
+using OrchardCore.Navigation;
 
 namespace Etch.OrchardCore.ThemeSettings
 {
@@ -11,6 +12,7 @@ namespace Etch.OrchardCore.ThemeSettings
         public override void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IDataMigration, Migrations>();
+            services.AddScoped<INavigationProvider, AdminMenu>();
 
             services.Configure<MvcOptions>((options) =>
             {
