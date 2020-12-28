@@ -24,7 +24,7 @@ Enable "Theme Settings" feature within the admin dashboard. This will create a n
 
 ### Add new properties
 
-By default the theme settings content type will only contain a field for defining the primary colour. To customise additional CSS variables within the theme, add a new text field to the theme settings ensuring that the technical name of the field matches the CSS variable name.
+By default the theme settings content type will only contain a field for defining the primary colour. To customise additional CSS variables within the theme, add a new [colour field](https://github.com/EtchUK/Etch.OrchardCore.Fields#colour) or text field to the theme settings ensuring that the technical name of the field matches the CSS variable name.
 
 ## Demo
 
