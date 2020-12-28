@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Html;
+﻿using Etch.OrchardCore.Fields.Colour.Fields;
+using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -6,6 +7,7 @@ using OrchardCore.Admin;
 using OrchardCore.ContentFields.Fields;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Metadata;
+using OrchardCore.ContentManagement.Metadata.Models;
 using OrchardCore.Entities;
 using OrchardCore.ResourceManagement;
 using OrchardCore.Settings;
@@ -25,6 +27,7 @@ namespace Etch.OrchardCore.ThemeSettings.Filters
         private readonly IResourceManager _resourceManager;
         private readonly ISiteService _siteService;
 
+        private readonly string[] _compatibleFields;
         private HtmlString _stylesCache;
 
         public ThemeSettingsFilter(
@@ -35,16 +38,29 @@ namespace Etch.OrchardCore.ThemeSettings.Filters
             _contentDefinitionManager = contentDefinitionManager;
             _resourceManager = resourceManager;
             _siteService = siteService;
+
+            _compatibleFields = new string[]
+            {
+                typeof(ColourField).Name,
+                typeof(TextField).Name
+            };
         }
 
         public async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
         {
             var siteSettings = await _siteService.GetSiteSettingsAsync();
             var themeSettings = siteSettings.As<ContentItem>(CustomSettingContentTypeName);
+
+            if (themeSettings == null)
+            {
+                await next.Invoke();
+                return;
+            }
+
             var themeSettingsContentPart = themeSettings.ContentItem.Get<ContentPart>(CustomSettingContentTypeName);
             var themeSettingFields = _contentDefinitionManager.GetTypeDefinition(CustomSettingContentTypeName)?.Parts.SingleOrDefault(x => x.Name == CustomSettingContentTypeName)?.PartDefinition.Fields;
 
-            if (themeSettings == null || themeSettingsContentPart == null || themeSettingFields == null)
+            if (themeSettingsContentPart == null || themeSettingFields == null)
             {
                 await next.Invoke();
                 return;
@@ -55,9 +71,9 @@ namespace Etch.OrchardCore.ThemeSettings.Filters
             {
                 var cssVariables = new Dictionary<string, string>();
 
-                foreach (var field in themeSettingFields.Where(x => x.FieldDefinition.Name == typeof(TextField).Name))
+                foreach (var field in themeSettingFields.Where(x => _compatibleFields.Contains(x.FieldDefinition.Name)))
                 {
-                    var value = themeSettingsContentPart.Get<TextField>(field.Name)?.Text;
+                    var value = GetFieldValue(themeSettingsContentPart, field);
 
                     if (!string.IsNullOrWhiteSpace(value))
                     {
@@ -94,6 +110,21 @@ namespace Etch.OrchardCore.ThemeSettings.Filters
         private string FormatName(string name)
         {
             return char.ToLower(name[0]) + name.Substring(1);
+        }
+
+        private string GetFieldValue(ContentPart themeSettingsContentPart, ContentPartFieldDefinition field)
+        {
+            if (field.FieldDefinition.Name == typeof(TextField).Name)
+            {
+                return themeSettingsContentPart.Get<TextField>(field.Name)?.Text;
+            }
+
+            if (field.FieldDefinition.Name == typeof(ColourField).Name)
+            {
+                return themeSettingsContentPart.Get<ColourField>(field.Name)?.Value;
+            }
+
+            return string.Empty;
         }
     }
 }
