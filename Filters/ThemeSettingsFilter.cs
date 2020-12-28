@@ -48,32 +48,16 @@ namespace Etch.OrchardCore.ThemeSettings.Filters
 
         public async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
         {
-            var siteSettings = await _siteService.GetSiteSettingsAsync();
-            var themeSettings = siteSettings.As<ContentItem>(CustomSettingContentTypeName);
-
-            if (themeSettings == null)
-            {
-                await next.Invoke();
-                return;
-            }
-
-            var themeSettingsContentPart = themeSettings.ContentItem.Get<ContentPart>(CustomSettingContentTypeName);
-            var themeSettingFields = _contentDefinitionManager.GetTypeDefinition(CustomSettingContentTypeName)?.Parts.SingleOrDefault(x => x.Name == CustomSettingContentTypeName)?.PartDefinition.Fields;
-
-            if (themeSettingsContentPart == null || themeSettingFields == null)
-            {
-                await next.Invoke();
-                return;
-            }
+            var themeSettings = await GetThemeSettingsDetailAsync();
 
             // Should only run on the front-end for a full view
             if ((context.Result is ViewResult || context.Result is PageResult) && !AdminAttribute.IsApplied(context.HttpContext))
             {
                 var cssVariables = new Dictionary<string, string>();
 
-                foreach (var field in themeSettingFields.Where(x => _compatibleFields.Contains(x.FieldDefinition.Name)))
+                foreach (var field in themeSettings.FieldDefinitions.Where(x => _compatibleFields.Contains(x.FieldDefinition.Name)))
                 {
-                    var value = GetFieldValue(themeSettingsContentPart, field);
+                    var value = GetFieldValue(themeSettings.Part, field);
 
                     if (!string.IsNullOrWhiteSpace(value))
                     {
@@ -126,5 +110,36 @@ namespace Etch.OrchardCore.ThemeSettings.Filters
 
             return string.Empty;
         }
+
+        private async Task<ThemeSettingsDetail> GetThemeSettingsDetailAsync()
+        {
+            var siteSettings = await _siteService.GetSiteSettingsAsync();
+            var themeSettings = siteSettings.As<ContentItem>(CustomSettingContentTypeName);
+
+            if (themeSettings == null)
+            {
+                return null;
+            }
+
+            var themeSettingsContentPart = themeSettings.ContentItem.Get<ContentPart>(CustomSettingContentTypeName);
+            var themeSettingFields = _contentDefinitionManager.GetTypeDefinition(CustomSettingContentTypeName)?.Parts.SingleOrDefault(x => x.Name == CustomSettingContentTypeName)?.PartDefinition.Fields;
+
+            if (themeSettingsContentPart == null || themeSettingFields == null)
+            {
+                return null;
+            }
+
+            return new ThemeSettingsDetail
+            {
+                FieldDefinitions = themeSettingFields,
+                Part = themeSettingsContentPart
+            };
+        }
+    }
+
+    internal class ThemeSettingsDetail
+    {
+        public IEnumerable<ContentPartFieldDefinition> FieldDefinitions { get; set; }
+        public ContentPart Part { get; set; }
     }
 }
