@@ -51,7 +51,7 @@ namespace Etch.OrchardCore.ThemeSettings.Filters
             var themeSettings = await GetThemeSettingsDetailAsync();
 
             // Should only run on the front-end for a full view
-            if ((context.Result is ViewResult || context.Result is PageResult) && !AdminAttribute.IsApplied(context.HttpContext))
+            if (themeSettings != null && (context.Result is ViewResult || context.Result is PageResult) && !AdminAttribute.IsApplied(context.HttpContext))
             {
                 var cssVariables = new Dictionary<string, string>();
 
