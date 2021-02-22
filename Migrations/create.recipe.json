@@ -38,26 +38,6 @@
             }
           ]
         }
-      ],
-      "ContentParts": [
-        {
-          "Name": "ThemeSettings",
-          "Settings": {},
-          "ContentPartFieldDefinitionRecords": [
-            {
-              "FieldName": "TextField",
-              "Name": "ColorPrimary",
-              "Settings": {
-                "ContentPartFieldSettings": {
-                  "DisplayName": "Primary Color",
-                  "Editor": "Color"
-                },
-                "TextFieldSettings": {},
-                "ContentIndexSettings": {}
-              }
-            }
-          ]
-        }
       ]
     }
   ]
