@@ -79,7 +79,7 @@ namespace Etch.OrchardCore.ThemeSettings.Filters
             await next.Invoke();
         }
 
-        private string FormatCssVariables(IDictionary<string, string> cssVariables)
+        private static string FormatCssVariables(IDictionary<string, string> cssVariables)
         {
             var builder = new StringBuilder();
 
@@ -91,12 +91,12 @@ namespace Etch.OrchardCore.ThemeSettings.Filters
             return builder.ToString();
         }
 
-        private string FormatName(string name)
+        private static string FormatName(string name)
         {
             return char.ToLower(name[0]) + name.Substring(1);
         }
 
-        private string GetFieldValue(ContentPart themeSettingsContentPart, ContentPartFieldDefinition field)
+        private static string GetFieldValue(ContentPart themeSettingsContentPart, ContentPartFieldDefinition field)
         {
             if (field.FieldDefinition.Name == typeof(TextField).Name)
             {
