@@ -8,7 +8,7 @@ Module for [Orchard Core](https://github.com/OrchardCMS/OrchardCore) for overrid
 
 ## Orchard Core Reference
 
-This module is referencing a stable build of Orchard Core ([`1.1.0`](https://www.nuget.org/packages/OrchardCore.Module.Targets/1.1.0)).
+This module is referencing a stable build of Orchard Core ([`1.3.0`](https://www.nuget.org/packages/OrchardCore.Module.Targets/1.3.0)).
 
 ## Installing
 
@@ -18,7 +18,7 @@ Alternatively you can [download the source](https://github.com/etchuk/Etch.Orcha
 
 ## Usage
 
-Firstly your theme must be using CSS variables (see our [theme boilerplate](https://github.com/EtchUK/Etch.OrchardCore.ThemeBoilerplate) for an exampe of this).
+Firstly your theme must be using CSS variables (see our [theme boilerplate](https://github.com/EtchUK/Etch.OrchardCore.ThemeBoilerplate) for an example of this).
 
 Enable "Theme Settings" feature within the admin dashboard. This will create a new "Theme Settings" content type that utilises custom settings and can be accessed in the admin menu under "Settings".
 
