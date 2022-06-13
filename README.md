@@ -8,7 +8,7 @@ Module for [Orchard Core](https://github.com/OrchardCMS/OrchardCore) for overrid
 
 ## Orchard Core Reference
 
-This module is referencing a stable build of Orchard Core ([`1.3.0`](https://www.nuget.org/packages/OrchardCore.Module.Targets/1.3.0)).
+This module is referencing a stable build of Orchard Core ([`1.4.0`](https://www.nuget.org/packages/OrchardCore.Module.Targets/1.4.0)).
 
 ## Installing
 
@@ -28,4 +28,5 @@ By default the theme settings content type will only contain a field for definin
 
 ## Demo
 
-![Screen recording of module functionality](https://github.com/etchuk/Etch.OrchardCore.ThemeSettings/raw/master/docs/demo-theme-settings.gif)
+![Screen recording of module functionality](https://github.com/EtchUK/Etch.OrchardCore.ThemeSettings/blob/main/docs/demo-theme-settings.gif?raw=true)
+
