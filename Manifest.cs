@@ -6,6 +6,6 @@ using OrchardCore.Modules.Manifest;
     Dependencies = new[] { "OrchardCore.ContentFields", "OrchardCore.CustomSettings" },
     Description = "Customise visual appearance of site.",
     Name = "Theme Settings",
-    Version = "1.3.0",
+    Version = "$(VersionNumber)",
     Website = "https://etchuk.com"
 )]
