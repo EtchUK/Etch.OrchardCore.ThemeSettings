@@ -122,7 +122,8 @@ namespace Etch.OrchardCore.ThemeSettings.Filters
             }
 
             var themeSettingsContentPart = themeSettings.ContentItem.Get<ContentPart>(CustomSettingContentTypeName);
-            var themeSettingFields = _contentDefinitionManager.GetTypeDefinition(CustomSettingContentTypeName)?.Parts.SingleOrDefault(x => x.Name == CustomSettingContentTypeName)?.PartDefinition.Fields;
+            var typeDefinition = await _contentDefinitionManager.GetTypeDefinitionAsync(CustomSettingContentTypeName);
+            var themeSettingFields = typeDefinition?.Parts.SingleOrDefault(x => x.Name == CustomSettingContentTypeName)?.PartDefinition.Fields;
 
             if (themeSettingsContentPart == null || themeSettingFields == null)
             {
