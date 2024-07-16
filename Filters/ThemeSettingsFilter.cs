@@ -65,7 +65,7 @@ namespace Etch.OrchardCore.ThemeSettings.Filters
                     }
                 }
 
-                if (_stylesCache == null && cssVariables.Any())
+                if (_stylesCache == null && cssVariables.Count() > 0)
                 {
                     _stylesCache = new HtmlString($"<style>:root {{ {Environment.NewLine} {FormatCssVariables(cssVariables)} {Environment.NewLine} }}</style>");
                 }
