@@ -1,3 +1,7 @@
+> ⚠️ **Archived – No Longer Maintained**
+>
+> This repository is no longer maintained due to a change in the technologies used by our organisation. No further updates, fixes, or security patches will be provided. The project is archived to prevent the expectation of ongoing support. The code remains available as-is for reference or forking.
+
 # Etch.OrchardCore.ThemeSettings
 
 Module for [Orchard Core](https://github.com/OrchardCMS/OrchardCore) for overriding CSS variables used within a theme.
@@ -29,4 +33,5 @@ By default the theme settings content type will only contain a field for definin
 ## Demo
 
 ![Screen recording of module functionality](https://github.com/EtchUK/Etch.OrchardCore.ThemeSettings/blob/main/docs/demo-theme-settings.gif?raw=true)
+
 
